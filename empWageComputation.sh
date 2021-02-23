@@ -1,3 +1,8 @@
 #!/bin/bash -x
 
-echo "Welcome to the Wage Computation File"
+if (( $((RANDOM%2)) -eq 1 ))
+then
+	echo "Employee is Present"
+else
+	echo "Employee is Absent"
+fi
