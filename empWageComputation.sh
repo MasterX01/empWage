@@ -1,13 +1,18 @@
 #!/bin/bash -x
 
 ratePerHour=20
-fulltime=8
+fullTime=8
+partTime=4
+empHr=$(( RANDOM%3 ))
 
-if (( $((RANDOM%2)) -eq 1 ))
+if (( $empHr -eq 1 ))
 then
-	echo "Employee is Present"
-	echo "Wage for the day is: "$(( ratePerHour*fulltime ))
+	echo "Employee is Present and is a fulltime worker"
+	echo "Wage for the day is: "$(( ratePerHour*fullTime ))
+elif (( $empHr -eq 2 ))
+	echo "Employee is Presentand is a part time worker"
+	echo "Wage for the day is: "$(( ratePerHour*partTime ))
+
 else
 	echo "Employee is Absent"
 fi
-
