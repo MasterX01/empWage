@@ -4,7 +4,7 @@
 partTime=0;
 fullTime=1;
 totalSalary=0;
-noOfWorkingDays=20;
+maxWorkingDays=5;
 empHrCheck=0;
 workingDays=1;
 
@@ -27,15 +27,25 @@ function empcheck() {
         echo $empHr
 }
 
-while (( $empHrCheck<=$maxWorkingHours && $workingDays<+$noOfWorkingDays ))
+function empDailyWage() {
+        local empHrLoc=$1
+        echo $(($empHrLoc*$empRatepHr))
+
+}
+
+while (( $empHrCheck<=$maxWorkingHours && $workingDays<=$maxWorkingDays ))
 do
-        empHrReturn="$( empcheck $((RANDOM%3)) )"
-        ((empHrCheck+=empHrReturn))
+        #Monthly Salary
+        empHrResult="$( empcheck $((RANDOM%3)) )"
+        ((empHrCheck+=empHrResult))
         ((workingDays++))
-        salary=$(($empHrReturn*$empRatepHr));
+        salary=$(($empHrResult*$empRatepHr));
         totalSalary=$(($totalSalary+$salary))
+        dailyWage[$workingDays]="$( empDailyWage $empHrResult )"
 done
+
 #salary=$(($empHrCheck*$empRatepHr));
 echo "Total Salary is $totalSalary";
+echo ${dailyWage[@]}
 
 
