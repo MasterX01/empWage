@@ -12,6 +12,8 @@ workingDays=1;
 maxWorkingHours=100;
 empRatepHr=20
 
+declare -A  dailyWage
+
 function empcheck() {
         case $1 in
                 $partTime)
@@ -38,14 +40,12 @@ do
         #Monthly Salary
         empHrResult="$( empcheck $((RANDOM%3)) )"
         ((empHrCheck+=empHrResult))
-        ((workingDays++))
         salary=$(($empHrResult*$empRatepHr));
         totalSalary=$(($totalSalary+$salary))
-        dailyWage[$workingDays]="$( empDailyWage $empHrResult )"
+        dailyWage["$workingDays"]="$( empDailyWage $empHrResult )"
+        ((workingDays++))
 done
 
 #salary=$(($empHrCheck*$empRatepHr));
 echo "Total Salary is $totalSalary";
-echo ${dailyWage[@]}
-
-
+echo "Keys are - "${!dailyWage[@]} " and Values are - "${dailyWage[@]}
